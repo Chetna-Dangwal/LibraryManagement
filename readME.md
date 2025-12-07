@@ -55,10 +55,61 @@ DATABASE_URL=postgresql://libraryuser:librarypass@postgres:5432/librarydb
 docker compose up --build
 ```
 
+### 🛑 Stop Running Containers
+
+```sh
+docker compose down
+```
+
+### 🗑 Remove All Containers Named the Same
+
+```sh
+docker rm -f library_api library_postgres
+```
+(Modify names if your services use different labels.)
+
+
+### 🔍 Check Stuck Containers
+
+```sh
+docker ps -a
+```
+If you see leftovers, remove them manually:
+
+```sh
+docker rm <container-id>
+```
+
+### 🧹 Remove Old Images
+
+```sh
+docker rm <container-id>
+```
+
+### 🧽 Remove Volumes (Resets Database)
+⚠ Use only if you want a fresh DB.
+
+```sh
+docker volume prune -f
+```
+
+or specifically:
+
+```sh
+docker volume rm librarymanagement_postgres_data
+```
+
+### 🚀 What Happens When You Run `docker compose up --build`
+
+```sh
+docker compose up --build
+```
+
 This will:
 - Build the FastAPI Docker image
-- Start PostgreSQL
-- Auto-create database tables
+- Start PostgreSQL/Stop the database
+- Auto-create database tables if they don't exist
+- Expose the API at `http://localhost:8000`
 
 ### 4️⃣ Access the API
 
